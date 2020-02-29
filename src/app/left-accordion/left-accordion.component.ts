@@ -20,15 +20,15 @@ export class LeftAccordionComponent implements OnInit {
 
   selectedCountries: any[] = []; 
   selectedChampionShips: any[] = []; 
-  selectedGame: any[]; 
-
 
   selectedSportID: string;
   selectedCountryID: string; 
   savedCountryIds: any[] = []; 
 
+  isSportActive: boolean = false; 
+
   
-  protected ngUnsubscire: Subject<void> = new Subject<void>(); 
+  protected ngUnsubscribe: Subject<void> = new Subject<void>(); 
 
   constructor(
     private appService: AppService
@@ -37,14 +37,14 @@ export class LeftAccordionComponent implements OnInit {
   ngOnInit() {
 
     this.getAllData(); 
-
+  
   }; 
 
   getAllData() {
 
     this.appService
         .getAllData()
-        .pipe( takeUntil( this.ngUnsubscire ) )
+        .pipe( takeUntil( this.ngUnsubscribe ) )
         .subscribe( data => {
           
           const allData: any[] = data['data']; 
@@ -56,44 +56,41 @@ export class LeftAccordionComponent implements OnInit {
               case 1  : this.allSports.push(item); 
                   break;
               //  * * * Get All Countries  Level - 2 * * * 
-              case 2 : this.allCountries.push(item); 
+              case 2 : this.allCountries.push(item);  
                 break; 
               //  * * * Get All Championships   Level - 3 * * * 
               case 3 : this.allChampionShips.push(item); 
                 break;
-            
             }; 
-
           });
-          
         }, err => console.log(err) ); 
-
   }; 
 
   showCountries( categoryId: string ) {
     
       this.selectedSportID = categoryId;
       this.selectedCountries = []; 
-  
-      this.allCountries.map( item => {
+    
+      this.allCountries.map( item => {  
   
        if ( categoryId === item.parentCategory ) {
-  
+
          this.selectedCountries.push(item); 
-         
-       }
-       
+      
+       }; 
+
      });
-  
-     console.log(this.selectedCountries);
-    
+
+    //  * * * Toggle show / hide  -  countries / champs of selected Sport  * * * 
+     this.isSportActive === false ? this.isSportActive = true : this.isSportActive = false;
+
   }; 
 
 
 
   showChampionShips( categoryId: string ) {    
        
-    //  * * * Add championships * * * 
+    //  * * * Add championShips * * * 
     if ( !this.savedCountryIds.includes( categoryId ) && 
           this.selectedCountryID !== categoryId
         ) {
@@ -102,12 +99,13 @@ export class LeftAccordionComponent implements OnInit {
       this.selectedCountryID = categoryId;  
   
       this.allChampionShips.map( item => {
-  
+        
         if ( categoryId === item.parentCategory ) {
-          this.selectedCountryID = item.parentCategory
+          this.selectedCountryID = item.parentCategory;
           this.selectedChampionShips.push(item); 
+         
         }; 
-  
+
       });
 
       console.log(this.selectedChampionShips);
@@ -121,22 +119,21 @@ export class LeftAccordionComponent implements OnInit {
       
       // * * * Clear selectedChampionships * * * 
       this.allChampionShips.map( item => {
-  
         if ( categoryId === item.parentCategory ) {
+
           const index = this.selectedChampionShips.indexOf(item); 
           this.selectedChampionShips.splice(index, 1); 
-        }; 
-      });
-      
+
+          }; 
+        });
       };
     }; 
 
 
-  showGames( selectedGame ) {
-
+  showGames( selectedGame: {} ) {
+    
     this.result.emit([selectedGame]); 
-    console.log(selectedGame);
-      
-    }
+
+  }
 
 }

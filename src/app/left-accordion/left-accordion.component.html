@@ -1,20 +1,33 @@
-<div class="row accord" *ngFor="let item of allSports">
+<div class="row accord" *ngFor="let item of allSports; let i = index">
     <!--  * * * All Sports * * *  -->
-    <div class="accord__sport col-12 mt-1 d-flex justify-content-between py-2"
-         (click)="showCountries(item.categoryId)">
-        <p> {{ item.categoryName }} </p>
-        <p> {{ item.eventsCount }} </p>
+    <div class="accord__sport col-12 d-flex justify-content-between py-2"
+         (click)="showCountries(item.categoryId)"
+         >
+         <div class="col-6">
+            <p> {{ item.categoryName }} </p>
+         </div>
+         <div class="col-6 d-flex justify-content-end">
+            <p *ngIf="isSportActive">-</p>
+            <p *ngIf="!isSportActive">+</p>
+            <p> {{ item.eventsCount }} </p>
+         </div>
     </div>
     <!--  * * * All Countries * * *  -->
-    <div class="accord__champs col-12 p-0" *ngIf="item.categoryId === selectedSportID">
+    <div class="accord__champs col-12 p-0" *ngIf="item.categoryId === selectedSportID && isSportActive">
         <ng-container *ngFor="let item of selectedCountries; let i = index">
+
             <div class="accord__champs__title d-flex justify-content-between px-2 py-2" 
                  (click)="showChampionShips( item.categoryId )"
                  >
-                <p > {{ item.categoryName }} </p>
-                <p> {{ item.eventsCount}} </p>
+                 <div class="col-6">
+                     <p> {{ item.categoryName }} </p>
+                 </div> 
+                 <div class="col-6 d-flex justify-content-end">
+                     <p *ngIf="item.isActive">-</p>
+                     <p *ngIf="!item.isActive">+</p>
+                     <p> {{ item.eventsCount}} </p>
+                 </div>
             </div>  
-
 
         <!--  * * * All ChampionShips * * *  -->
         <div class="accord__champs__sub col-12 p-0" 
@@ -22,13 +35,15 @@
             >
             <ng-container *ngFor="let champ of selectedChampionShips">
                    
-                <div class="accord__champs__title d-flex justify-content-between px-2 py-2" 
+                <div class="accord__champs__title d-flex justify-content-between py-2" 
                          *ngIf="champ.parentCategory === item.categoryId"
                          (click)="showGames(champ)">
-
-                        <input type="checkbox" >
-                        <p> {{ champ.categoryName }} </p>
-                        
+                        <div class="col-1">
+                            <input type="checkbox" >
+                        </div>
+                        <div class="col d-flex justify-content-start">
+                            <p> {{ champ.categoryName }} </p>
+                        </div>
                 </div>
 
             </ng-container>
