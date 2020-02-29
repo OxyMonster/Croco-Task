@@ -1,0 +1,41 @@
+<div class="row accord" *ngFor="let item of allSports">
+    <!--  * * * All Sports * * *  -->
+    <div class="accord__sport col-12 mt-1 d-flex justify-content-between py-2"
+         (click)="showCountries(item.categoryId)">
+        <p> {{ item.categoryName }} </p>
+        <p> {{ item.eventsCount }} </p>
+    </div>
+    <!--  * * * All Countries * * *  -->
+    <div class="accord__champs col-12 p-0" *ngIf="item.categoryId === selectedSportID">
+        <ng-container *ngFor="let item of selectedCountries; let i = index">
+            <div class="accord__champs__title d-flex justify-content-between px-2 py-2" 
+                 (click)="showChampionShips( item.categoryId )"
+                 >
+                <p > {{ item.categoryName }} </p>
+                <p> {{ item.eventsCount}} </p>
+            </div>  
+
+
+        <!--  * * * All ChampionShips * * *  -->
+        <div class="accord__champs__sub col-12 p-0" 
+            *ngIf="item.categoryId === selectedCountryID || savedCountryIds.includes( item.categoryId ) "
+            >
+            <ng-container *ngFor="let champ of selectedChampionShips">
+                   
+                <div class="accord__champs__title d-flex justify-content-between px-2 py-2" 
+                         *ngIf="champ.parentCategory === item.categoryId"
+                         (click)="showGames(champ)">
+
+                        <input type="checkbox" >
+                        <p> {{ champ.categoryName }} </p>
+                        
+                </div>
+
+            </ng-container>
+        </div>
+        </ng-container>
+
+        
+    </div>
+ 
+</div>

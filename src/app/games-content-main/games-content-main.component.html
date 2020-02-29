@@ -1,0 +1,25 @@
+<ng-container *ngIf="selectedGames.length > 0; else default">
+    <div class="row games" *ngFor="let item of selectedGames" >
+        <div class="games__sports py-3 col-12">
+            <p> {{ item.sportName }} </p>
+        </div>
+        <div class="col-12 games__champ py-3">
+            <p> {{ item.categoryName }} </p>
+        </div>
+        <div class="col-12 games__title py-3" >
+            <p> {{ item.categoryId }} </p>
+        </div>
+    </div>    
+</ng-container>
+
+
+<ng-template #default>
+    <div class="row games">
+        <div class="games__sports py-3 col-12">
+            <p> Choose your sport </p>
+        </div>
+        <div class="col-12 games__champ py-3">
+            <p>Choose your championship </p>
+        </div>
+    </div>
+</ng-template>
