@@ -53,10 +53,10 @@ export class LeftAccordionComponent implements OnInit {
             
             switch ( item.level ) {
               //  * * * Get All Sports   Level - 1 * * * 
-              case 1  : this.allSports.push(item); 
+              case 1  : this.allSports.push(item); item.isActive = false; 
                   break;
               //  * * * Get All Countries  Level - 2 * * * 
-              case 2 : this.allCountries.push(item);  
+              case 2 : this.allCountries.push(item); item.isActve = false; 
                 break; 
               //  * * * Get All Championships   Level - 3 * * * 
               case 3 : this.allChampionShips.push(item); 
@@ -66,8 +66,8 @@ export class LeftAccordionComponent implements OnInit {
         }, err => console.log(err) ); 
   }; 
 
-  showCountries( categoryId: string ) {
-    
+  showCountries( categoryId: string, index: number ) {
+
       this.selectedSportID = categoryId;
       this.selectedCountries = []; 
     
@@ -81,23 +81,26 @@ export class LeftAccordionComponent implements OnInit {
 
      });
 
-    //  * * * Toggle show / hide  -  countries / champs of selected Sport  * * * 
+    //  * * * Toggle show / hide  -  countries / champs / + , -   of selected Sport  * * * 
      this.isSportActive === false ? this.isSportActive = true : this.isSportActive = false;
+     this.allSports[index].isActive === false ? this.allSports[index].isActive = true :this.allSports[index].isActive = false; 
 
   }; 
 
 
 
-  showChampionShips( categoryId: string ) {    
-       
+  showChampionShips( categoryId: string, index: number ) {    
+
     //  * * * Add championShips * * * 
     if ( !this.savedCountryIds.includes( categoryId ) && 
           this.selectedCountryID !== categoryId
         ) {
-      
+
       this.savedCountryIds.push( categoryId );
       this.selectedCountryID = categoryId;  
-  
+      // * * *   Toggle + , - * * * 
+      this.selectedCountries[index].isActive = true ;
+
       this.allChampionShips.map( item => {
         
         if ( categoryId === item.parentCategory ) {
@@ -111,7 +114,9 @@ export class LeftAccordionComponent implements OnInit {
       console.log(this.selectedChampionShips);
       
     } else {
-      
+      // * * *   Toggle + , - * * *
+      this.selectedCountries[index].isActive = false ;
+
       // * * * Hide window * * * 
       const indexOfSaved  = this.savedCountryIds.indexOf(categoryId);
       this.savedCountryIds.splice(indexOfSaved, 1); 

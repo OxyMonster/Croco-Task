@@ -1,14 +1,14 @@
 <div class="row accord" *ngFor="let item of allSports; let i = index">
     <!--  * * * All Sports * * *  -->
     <div class="accord__sport col-12 d-flex justify-content-between py-2"
-         (click)="showCountries(item.categoryId)"
+         (click)="showCountries(item.categoryId, i )"
          >
          <div class="col-6">
             <p> {{ item.categoryName }} </p>
          </div>
          <div class="col-6 d-flex justify-content-end">
-            <p *ngIf="isSportActive">-</p>
-            <p *ngIf="!isSportActive">+</p>
+            <p *ngIf="item.isActive">-</p>
+            <p *ngIf="!item.isActive">+</p>
             <p> {{ item.eventsCount }} </p>
          </div>
     </div>
@@ -17,7 +17,7 @@
         <ng-container *ngFor="let item of selectedCountries; let i = index">
 
             <div class="accord__champs__title d-flex justify-content-between px-2 py-2" 
-                 (click)="showChampionShips( item.categoryId )"
+                 (click)="showChampionShips( item.categoryId, i )"
                  >
                  <div class="col-6">
                      <p> {{ item.categoryName }} </p>
