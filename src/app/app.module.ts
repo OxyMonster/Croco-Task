@@ -1,10 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LeftAccordionComponent } from './left-accordion/left-accordion.component';
-import { GamesContentMainComponent } from './games-content-main/games-content-main.component';
+import { GamesContentRightComponent } from './games-content-right/games-content-right.component';
 import { HttpClientModule }    from '@angular/common/http';
 
 
@@ -12,11 +11,10 @@ import { HttpClientModule }    from '@angular/common/http';
   declarations: [
     AppComponent,
     LeftAccordionComponent,
-    GamesContentMainComponent
+    GamesContentRightComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule
   ],
   providers: [],

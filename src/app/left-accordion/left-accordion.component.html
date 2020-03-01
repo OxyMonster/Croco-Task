@@ -10,12 +10,11 @@
             <p *ngIf="item.isActive">-</p>
             <p *ngIf="!item.isActive">+</p>
             <p> {{ item.eventsCount }} </p>
-         </div>
+         </div> 
     </div>
     <!--  * * * All Countries * * *  -->
     <div class="accord__champs col-12 p-0" *ngIf="item.categoryId === selectedSportID && isSportActive">
         <ng-container *ngFor="let item of selectedCountries; let i = index">
-
             <div class="accord__champs__title d-flex justify-content-between px-2 py-2" 
                  (click)="showChampionShips( item.categoryId, i )"
                  >
@@ -33,13 +32,13 @@
         <div class="accord__champs__sub col-12 p-0" 
             *ngIf="item.categoryId === selectedCountryID || savedCountryIds.includes( item.categoryId ) "
             >
-            <ng-container *ngFor="let champ of selectedChampionShips">
+            <ng-container *ngFor="let champ of selectedChampionShips; let i = index;">
                    
                 <div class="accord__champs__title d-flex justify-content-between py-2" 
                          *ngIf="champ.parentCategory === item.categoryId"
-                         (click)="showGames(champ)">
-                        <div class="col-1">
-                            <input type="checkbox" >
+                         (click)="showGames(champ, i)">
+                        <div class="col-1">  
+                            <input type="checkbox" [checked] = 'champ.isSelected'>
                         </div>
                         <div class="col d-flex justify-content-start">
                             <p> {{ champ.categoryName }} </p>
@@ -50,7 +49,6 @@
         </div>
         </ng-container>
 
-        
     </div>
  
 </div>

@@ -20,6 +20,7 @@ export class LeftAccordionComponent implements OnInit {
 
   selectedCountries: any[] = []; 
   selectedChampionShips: any[] = []; 
+  selectedGames: any[] = []; 
 
   selectedSportID: string;
   selectedCountryID: string; 
@@ -59,7 +60,7 @@ export class LeftAccordionComponent implements OnInit {
               case 2 : this.allCountries.push(item); item.isActve = false; 
                 break; 
               //  * * * Get All Championships   Level - 3 * * * 
-              case 3 : this.allChampionShips.push(item); 
+              case 3 : this.allChampionShips.push(item); item.isSelected = false 
                 break;
             }; 
           });
@@ -81,10 +82,10 @@ export class LeftAccordionComponent implements OnInit {
 
      });
 
-    //  * * * Toggle show / hide  -  countries / champs / + , -   of selected Sport  * * * 
+    //  * * * Toggle show / hide  -  countries / champs / + , - /    of selected Sport  * * * 
      this.isSportActive === false ? this.isSportActive = true : this.isSportActive = false;
-     this.allSports[index].isActive === false ? this.allSports[index].isActive = true :this.allSports[index].isActive = false; 
-
+     this.allSports[index].isActive === false ? this.allSports[index].isActive = true  :
+     this.allSports[index].isActive = false; 
   }; 
 
 
@@ -135,9 +136,25 @@ export class LeftAccordionComponent implements OnInit {
     }; 
 
 
-  showGames( selectedGame: {} ) {
-    
-    this.result.emit([selectedGame]); 
+  showGames( selectedGame: any, index: number ) {
+
+    //  * * Add selected games * * 
+    if ( !this.selectedGames.includes(selectedGame) ) {
+      
+      this.selectedGames.push( selectedGame ); 
+      console.log("heree");
+      
+    } else {
+      //  * * clear selected games * * 
+      const index = this.selectedGames.indexOf(selectedGame); 
+      this.selectedGames.splice(index, 1); 
+    }
+    // * * * Toggle Checkbox * * * 
+    this.selectedChampionShips[index].isSelected === false ? this.selectedChampionShips[index].isSelected = true : 
+    this.selectedChampionShips[index].isSelected = false;
+    // * * / * * 
+    this.result.emit(this.selectedGames); 
+ 
 
   }
 
