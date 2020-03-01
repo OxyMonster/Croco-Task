@@ -9,11 +9,17 @@
     &__sports {
         background-color: $light-dark-green;
         color: white;
+        p {
+            font-size: .75rem;
+        }
     };   
 
     &__champ {
         background-color: $green;
         color: white;
+        p {
+            font-size: .75rem;
+        }
     };  
 
     &__title {

@@ -46,7 +46,7 @@ export class LeftAccordionComponent implements OnInit {
     this.appService
         .getAllData()
         .pipe( takeUntil( this.ngUnsubscribe ) )
-        .subscribe( data => {
+        .subscribe( data => {  
           
           const allData: any[] = data['data']; 
          
