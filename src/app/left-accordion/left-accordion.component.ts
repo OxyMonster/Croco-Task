@@ -79,7 +79,6 @@ export class LeftAccordionComponent implements OnInit {
          this.selectedCountries.push(item); 
       
        }; 
-
      });
 
     //  * * * Toggle show / hide  -  countries / champs / + , - /    of selected Sport  * * * 
@@ -96,9 +95,11 @@ export class LeftAccordionComponent implements OnInit {
     if ( !this.savedCountryIds.includes( categoryId ) && 
           this.selectedCountryID !== categoryId
         ) {
-
+      
+      // * * *  Save selected Championship * * * 
       this.savedCountryIds.push( categoryId );
       this.selectedCountryID = categoryId;  
+
       // * * *   Toggle + , - * * * 
       this.selectedCountries[index].isActive = true ;
 
@@ -140,21 +141,21 @@ export class LeftAccordionComponent implements OnInit {
 
     //  * * Add selected games * * 
     if ( !this.selectedGames.includes(selectedGame) ) {
-      
-      this.selectedGames.push( selectedGame ); 
-      console.log("heree");
+
+      this.selectedGames.unshift( selectedGame ); 
       
     } else {
-      //  * * clear selected games * * 
+      //  * * Clear selected games * * 
       const index = this.selectedGames.indexOf(selectedGame); 
       this.selectedGames.splice(index, 1); 
     }
     // * * * Toggle Checkbox * * * 
     this.selectedChampionShips[index].isSelected === false ? this.selectedChampionShips[index].isSelected = true : 
     this.selectedChampionShips[index].isSelected = false;
+    
     // * * / * * 
+
     this.result.emit(this.selectedGames); 
- 
 
   }
 
